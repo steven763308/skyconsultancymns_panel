@@ -22,7 +22,7 @@ export function middleware(request: NextRequest) {
 
   // ❌ 未登录则跳转 login 页面
   if (loggedIn !== 'true') {
-    const loginUrl = new URL('/login', request.url);
+    const loginUrl = new URL('/', request.url);
     return NextResponse.redirect(loginUrl);
   }
 
