@@ -33,9 +33,12 @@ export function middleware(request: NextRequest) {
 // ✅ 应用 middleware 的路径规则
 export const config = {
   matcher: [
-    '/',                    // 首页
-    '/dashboard/:path*',    // dashboard 所有子页面
-    '/admin/:path*',        // admin 所有子页面
-    '/setting/:path*',      // setting 所有子页面
+    '/',                      // 首页
+    '/dashboard',             // dashboard 主页
+    '/dashboard/:path*',      // dashboard 子页
+    '/admin',                 // admin 主页
+    '/admin/:path*',          // admin 子页
+    '/setting',               // setting 主页
+    '/setting/:path*',        // setting 子页
   ],
 };

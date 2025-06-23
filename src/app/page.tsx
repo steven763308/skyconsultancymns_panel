@@ -1,62 +1,93 @@
+//entry (Login Form)
+
 "use client";
-import { useEffect } from "react";
+
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-export default function Home() {
+export default function LoginPage() {
   const router = useRouter();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
+  // 自动跳转：如果 cookie 已存在就跳转首页
   useEffect(() => {
-    const loggedIn = localStorage.getItem("sky_logged_in");
-    if (loggedIn !== "true") {
-      router.push("/login");
+    const isLoggedIn = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("sky_logged_in="))?.split("=")[1];
+
+    if (isLoggedIn === "true") {
+      router.push("/");
     }
   }, []);
 
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (username === "steven" && password === "scmns0901") {
+      // 设置 cookie 有效期 7 天
+      const expires = new Date();
+      expires.setDate(expires.getDate() + 7);
+      document.cookie = `sky_logged_in=true; path=/; expires=${expires.toUTCString()}`;
+
+      router.push("/dashboard");
+    } else {
+      setError("账号或密码错误");
+    }
+  };
+
   return (
-    <main className="min-h-screen bg-gray-100 p-6">
-      <h1 className="text-2xl font-bold text-center mb-6">Sky Consultancy 工具面板</h1>
+    <main className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+      <form
+        onSubmit={handleLogin}
+        className="bg-white p-8 rounded-xl shadow-xl w-full max-w-sm"
+      >
+        {/* Logo */}
+        <div className="flex justify-center mb-6">
+          <img
+            src="/image/scmnsLogo.png"
+            alt="Sky Consultancy Logo"
+            className="h-14"
+          />
+        </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-        {/* CIDB */}
-        <a
-          href="https://cims.cidb.gov.my"
-          target="_blank"
-          className="bg-white p-6 rounded-lg shadow hover:shadow-md transition"
-        >
-          <h2 className="text-xl font-semibold mb-2">CIDB CIMS 系统</h2>
-          <p className="text-sm text-gray-600">注册公司、升级等级、管理 G1-G7</p>
-        </a>
+        {/* Title */}
+        <h1 className="text-2xl font-bold mb-6 text-center">
+          Sky Consultancy 登入
+        </h1>
 
-        {/* ESD */}
-        <a
-          href="https://esd.imi.gov.my"
-          target="_blank"
-          className="bg-white p-6 rounded-lg shadow hover:shadow-md transition"
-        >
-          <h2 className="text-xl font-semibold mb-2">ESD 外籍雇员系统</h2>
-          <p className="text-sm text-gray-600">EP 配额、聘请申请、公司注册</p>
-        </a>
+        {/* Error Message */}
+        {error && (
+          <p className="text-red-500 text-sm mb-4 text-center">{error}</p>
+        )}
 
-        {/* MyHelp */}
-        <a
-          href="https://myhelp.imi.gov.my"
-          target="_blank"
-          className="bg-white p-6 rounded-lg shadow hover:shadow-md transition"
-        >
-          <h2 className="text-xl font-semibold mb-2">MyHelp 系统</h2>
-          <p className="text-sm text-gray-600">线上预约、递交文件与备案</p>
-        </a>
+        {/* Username */}
+        <input
+          type="text"
+          placeholder="账号"
+          className="border border-gray-300 w-full px-4 py-2 rounded mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
 
-        {/* MyKKP */}
-        <a
-          href="https://mykkp.dosh.gov.my"
-          target="_blank"
-          className="bg-white p-6 rounded-lg shadow hover:shadow-md transition"
+        {/* Password */}
+        <input
+          type="password"
+          placeholder="密码"
+          className="border border-gray-300 w-full px-4 py-2 rounded mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+
+        {/* Submit Button */}
+        <button
+          type="submit"
+          className="w-full bg-black text-white py-2 rounded hover:bg-gray-800 transition"
         >
-          <h2 className="text-xl font-semibold mb-2">MyKKP 工地备案</h2>
-          <p className="text-sm text-gray-600">JKKP / PEMTK 系统，项目备案与申请</p>
-        </a>
-      </div>
+          登录
+        </button>
+      </form>
     </main>
   );
 }
