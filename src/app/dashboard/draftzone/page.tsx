@@ -71,6 +71,26 @@ export default function Home() {
           <h2 className="text-xl font-semibold mb-2">CIMB Octo Biz</h2>
           <p className="text-sm text-gray-600">Company Bank Portal</p>
         </a>
+
+        {/* MetaSuite */}
+        <a
+          href="https://business.facebook.com/latest/home?"
+          target="_blank"
+          className="bg-white p-6 rounded-lg shadow hover:shadow-md transition"
+        >
+          <h2 className="text-xl font-semibold mb-2">Meta Business Suite</h2>
+          <p className="text-sm text-gray-600">Facebook Page Manage</p>
+        </a>
+
+        {/* Website Enquiry */}
+        <a
+          href="https://formspree.io/"
+          target="_blank"
+          className="bg-white p-6 rounded-lg shadow hover:shadow-md transition"
+        >
+          <h2 className="text-xl font-semibold mb-2">Website Enquiry</h2>
+          <p className="text-sm text-gray-600">Website Enquiry Submission</p>
+        </a>
       </div>
     </main>
   );
