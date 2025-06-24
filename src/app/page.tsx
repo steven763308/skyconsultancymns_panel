@@ -40,7 +40,7 @@ export default function LoginPage() {
     }
 
     // 登录验证
-    if (username === "steven" && password === "scmns0901") {
+    if (username.toLowerCase() === "steven" && password === "scmns0901") {
       const expires = new Date();
       expires.setDate(expires.getDate() + 7);
       document.cookie = `sky_logged_in=true; path=/; expires=${expires.toUTCString()}`;
