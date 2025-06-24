@@ -22,7 +22,7 @@ export function middleware(request: NextRequest) {
 
   // ❌ 未登录或无 token，则跳转 login 页面
   if (!token) {
-    const loginUrl = new URL('/login', request.url); // ✅ 跳转改为 /login
+    const loginUrl = new URL('/', request.url); // ✅ 跳转改为 /login
     return NextResponse.redirect(loginUrl);
   }
 
