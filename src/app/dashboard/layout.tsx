@@ -1,12 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation"; // ✅ 加入 router
 import { ReactNode, useEffect, useState } from "react";
-import { Pin, PinOff, LogOut, Home } from "lucide-react"; // 你可替换为你用的 icon 库
+import { Pin, PinOff, LogOut, Home } from "lucide-react";
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   const pathname = usePathname();
+  const router = useRouter(); // ✅ 初始化 router
 
   const [isPinned, setIsPinned] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -22,7 +23,6 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
     { label: "设定", href: "/dashboard/settings", icon: <Home size={18} /> },
   ];
 
-  // 自动检测是否是移动设备
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
@@ -81,9 +81,11 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
           <button
             className="bg-black text-white px-4 py-2 rounded flex items-center gap-2"
             onClick={() => {
+              // ✅ 清除 JWT Token Cookie
               document.cookie =
-                "sky_logged_in=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
-              window.location.href = "/";
+                "sky_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+              // ✅ 跳转回主页或 login 页
+              router.push("/");
             }}
           >
             <LogOut size={16} />
