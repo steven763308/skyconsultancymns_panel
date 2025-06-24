@@ -18,10 +18,12 @@ export default function LoginPage() {
   const t = lang.login;
   
   useEffect(() => {
-    const isLoggedIn = document.cookie
+    //token validation
+    const token = document.cookie
       .split("; ")
-      .find((row) => row.startsWith("sky_logged_in="))?.split("=")[1];
-    if (isLoggedIn === "true") {
+      .find((row) => row.startsWith("sky_token="))?.split("=")[1];
+
+    if (token) {
       router.push("/dashboard");
     }
   }, []);
@@ -43,7 +45,11 @@ export default function LoginPage() {
     if (username.toLowerCase() === "steven" && password === "scmns0901") {
       const expires = new Date();
       expires.setDate(expires.getDate() + 7);
-      document.cookie = `sky_logged_in=true; path=/; expires=${expires.toUTCString()}`;
+
+      //mock token (Future connect JWT)
+      const mockToken = "abc.def.ghi";
+      document.cookie = `sky_token=${mockToken}; path=/; expires=${expires.toUTCString()}`;
+
       router.push("/dashboard");
     } else {
       setError("账号或密码错误");

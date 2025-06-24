@@ -2,7 +2,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-// 可配置：所有受保护路径前缀
+// ✅ 可配置：所有受保护路径前缀
 const protectedPaths = ['/', '/dashboard', '/admin', '/setting'];
 
 export function middleware(request: NextRequest) {
@@ -14,15 +14,15 @@ export function middleware(request: NextRequest) {
   );
 
   if (!isProtected) {
-    return NextResponse.next(); // 放行不受保护的路径
+    return NextResponse.next(); // ✅ 放行不受保护的路径
   }
 
-  // ✅ 读取 cookie 判断是否登录
-  const loggedIn = request.cookies.get('sky_logged_in')?.value;
+  // ✅ 改为读取 sky_token
+  const token = request.cookies.get('sky_token')?.value;
 
-  // ❌ 未登录则跳转 login 页面
-  if (loggedIn !== 'true') {
-    const loginUrl = new URL('/', request.url);
+  // ❌ 未登录或无 token，则跳转 login 页面
+  if (!token) {
+    const loginUrl = new URL('/login', request.url); // ✅ 跳转改为 /login
     return NextResponse.redirect(loginUrl);
   }
 
