@@ -12,11 +12,11 @@ export default function AuthGuard({
   const pathname = usePathname();
 
   useEffect(() => {
-    const isLoginPage = pathname.startsWith("/login");
+    const isLoginPage = pathname.startsWith("/");
     const loggedIn = localStorage.getItem("sky_logged_in");
 
     if (!loggedIn && !isLoginPage) {
-      router.push("/login");
+      router.push("/");
     }
   }, [pathname]);
 
