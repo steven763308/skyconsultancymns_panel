@@ -18,7 +18,7 @@ export default function LoginPage() {
       .find((row) => row.startsWith("sky_logged_in="))?.split("=")[1];
 
     if (isLoggedIn === "true") {
-      router.push("/");
+      //
     }
   }, []);
 
