@@ -18,16 +18,11 @@ export const metadata: Metadata = {
   description: "Internal system panel",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="public\image\scmnsLogo.png" type="image/png" />
-        {/* 你也可以改成 PNG、SVG 等其他图标格式 */}
+        <link rel="icon" href="/image/scmnsLogo.png" type="image/png" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-black`}
@@ -37,3 +32,4 @@ export default function RootLayout({
     </html>
   );
 }
+
