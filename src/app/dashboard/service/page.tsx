@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 export default function Home() {
+  /*
   const router = useRouter();
 
   useEffect(() => {
@@ -11,6 +12,7 @@ export default function Home() {
       router.push("/");
     }
   }, []);
+  */
 
   return (
     <main className="min-h-screen bg-gray-100 p-6">
